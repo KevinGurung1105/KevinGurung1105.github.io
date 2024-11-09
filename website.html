@@ -1,0 +1,107 @@
+<html>
+    <head>
+        <title>
+            My Rocket League Page
+        </title>
+    </head>
+    <body style="background: linear-gradient(to bottom right,rgba(68, 7, 77, 0.8), rgba(9, 53, 104, 0.8)), url('background.png');">
+        <link rel="stylesheet" href="mysheet.css">
+        <h1 class="Home">HOME</h1>
+        <h2 style="color: white;">CLIPS</h2>
+        <div class="Clips" style="text-align: center;">
+            <div class="currentVid">
+                <video class="currentVid" id="videoId" autoplay muted width="500px" height="281.25px" src="clip1.mp4"></video>
+                <button onclick="nextVideo()" id="RvideoButton">Next Video</button>
+                <button onclick="prevVideo()" id="LvideoButton">Previous Video</button>
+            </div>
+            <image class="prevVid" id="prevImgId" width="400px" height="225px" src="clip5img.png"></image>
+            <image class="nextVid" id="nextImgId" width="400px" height="225px" src="clip2img.png"></image>
+            <h1 class="text">Now Playing</h1>
+            <a href="https://rocketleague.tracker.network/rocket-league/profile/xbl/q1q1q1q18318/overview" style="font-family: sans-serif; font-size: 30px; color: lightblue;">Account: q1q1q1q18318</a>
+            <script>
+                const videos = ["clip1.mp4", "clip2.mp4", "clip3.mp4", "clip4.mp4", "clip5.mp4", "clip6.mp4", "clip7.mp4", "clip8.mp4", "clip9.mp4"];
+                const thumbnails = ["clip1img.png", "clip2img.png", "clip3img.png", "clip4img.png", "clip5img.png", "clip6img.png", "clip7img.png", "clip8img.png", "clip9img.png"]
+                const videoElement = document.getElementById("videoId");
+                const prevImgElement = document.getElementById("prevImgId");
+                const nextImgElement = document.getElementById("nextImgId");
+                let currentInd = 0;
+
+                function boundaryCheck(){
+                    if(currentInd != thumbnails.length){
+                        if (currentInd == 0){
+                            nextImgElement.src = thumbnails[currentInd + 1];
+                            prevImgElement.src = thumbnails[thumbnails.length - 1];
+                        }
+                        else if(currentInd < 0){
+                            currentInd = thumbnails.length - 1;
+                            nextImgElement.src = thumbnails[0];
+                            prevImgElement.src = thumbnails[currentInd-1];
+                        }
+                        else if(currentInd == thumbnails.length - 1){
+                            nextImgElement.src = thumbnails[0];
+                            prevImgElement.src = thumbnails[currentInd - 1];
+                        }
+                        else{
+                            prevImgElement.src = thumbnails[currentInd - 1];
+                            nextImgElement.src = thumbnails[currentInd + 1];
+                        }
+                    }
+                    else{
+                        prevImgElement.src = thumbnails[currentInd - 1];
+                        nextImgElement.src = thumbnails[1];
+                        currentInd = 0;
+                    }
+                }
+
+                function nextVideo(){
+                    currentInd = currentInd + 1;
+                    boundaryCheck();
+                    videoElement.src = videos[currentInd];
+                    videoElement.load();
+                    videoElement.play();
+                }
+
+                function prevVideo(){
+                    currentInd = currentInd - 1;
+                    boundaryCheck();
+                    videoElement.src = videos[currentInd];
+                    videoElement.load();
+                    videoElement.play();
+                }
+                
+                videoElement.addEventListener("ended", () => {
+                    currentInd = currentInd + 1;
+                    boundaryCheck();
+                    videoElement.src = videos[currentInd];
+                    videoElement.load();
+                    videoElement.play();
+                });
+                
+            </script>
+        </div>
+        
+        <div class="presets">
+            <div class="presetButton">
+                <p><b>PRESETS</b></p>
+            </div>
+            <div class="innerBox">
+                <p style="font-family: sans-serif;"><b>My Presets</b></p>
+                <div class="presetSpace">
+                    <p>PRESET 1</p>
+                    <image width="190px" height="120" src="preset1blue.jpg""></image>
+                    <image width="190px" height="120" src="preset1orange.jpg"></image>
+                </div>
+                <div class="presetSpace">
+                    <p>PRESET 2</p>
+                    <image class="preset2" width="190px" height="120" src="preset2blue.jpg"></image>
+                    <image class="preset2" width="190px" height="120" src="preset2orange.jpg"></image>
+                </div>
+                <div class="presetSpace">
+                    <p>PRESET 3</p>
+                    <image class="preset3" width="190px" height="120" src="preset3blue.jpg"></image>
+                    <image class="preset3" width="190px" height="120" src="preset3orange.jpg"></image>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
